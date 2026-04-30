@@ -1,0 +1,33 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login do Sistema</title>
+    <link rel="stylesheet" href="geral.css">
+</head>
+<body>
+    <nav class="menu-nav">
+        <table class="menu-tabela">
+            <tr>
+                <td><a href="index.html">Início</a></td>
+                <td><a href="alunos.php">Aniversários</a></td>
+                <td><a href="alunos2.php">Lista Alunos</a></td>
+                <td><a href="logof.html">Sair</a></td>
+            </tr>
+        </table>
+    </nav>
+
+    <div class="geral">
+        <h3>Acesso ao Sistema</h3>
+        <form method="POST" action="validarLogin.php">
+            <div class="dados">
+                <label>Usuário:</label>
+                <input type="text" name="nome" required>
+
+                <label>Senha:</label>
+                <input type="password" name="Senha" required>
+            </div>
+            <button type="submit" style="width: 100%;" class="botao-alunos">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

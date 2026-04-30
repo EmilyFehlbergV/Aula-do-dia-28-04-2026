@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://10.112.4.37/23-04-2026/SessaoEmPhp.php -->
+<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entendendo Sessões em PHP</title>
+    <style>
+        :root {
+            --primary: #4F5B93; /* Cor oficial PHP */
+            --bg: #f4f7f6;
+            --text: #333;
+            --card-bg: #ffffff;
+            --code-bg: #2d2d2d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+        }
+
+        h2 { color: var(--primary); margin-top: 0; }
+
+        code {
+            background: var(--code-bg);
+            color: #f8f8f2;
+            padding: 15px;
+            display: block;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            margin: 15px 0;
+        }
+
+        .badge {
+            background: #e1e4e8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Gerenciamento de Sessões em PHP</h1>
+        <p>Como manter o estado do usuário entre diferentes páginas</p>
+    </header>
+
+    <div class="step">
+        <h2>1. Criando a Sessão (Login)</h2>
+        <p>Para iniciar qualquer manipulação de sessão, usamos o <span class="badge">session_start()</span>. Ele cria um ID único no servidor e envia um cookie para o navegador do usuário.</p>
+        <code>
+&lt;?php<br>
+session_start(); // Essencial: deve ser a primeira linha!<br><br>
+// Guardamos informações na "gaveta" global do servidor<br>
+$_SESSION["usuario"] = "Gemini";<br>
+$_SESSION["id"] = 123;<br>
+$_SESSION["logado"] = true;<br><br>
+echo "Sessão iniciada e variáveis gravadas!";<br>
+?&gt;
+        </code>
+    </div>
+
+    <div class="step">
+        <h2>2. Recuperando Dados (Perfil)</h2>
+        <p>Em outra página, o PHP reconhece o usuário pelo ID do cookie e reidrata a superglobal <span class="badge">$_SESSION</span> com os dados que salvamos antes.</p>
+        <code>
+&lt;?php<br>
+session_start(); // Conecta com a sessão existente<br><br>
+if (isset($_SESSION["usuario"])) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;echo "Bem-vindo, " . $_SESSION["usuario"] . "!";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;echo "Seu ID é: " . $_SESSION["id"];<br>
+} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;echo "Você não está logado.";<br>
+}<br>
+?&gt;
+        </code>
+    </div>
+
+    <div class="step">
+        <h2>3. Encerrando a Sessão (Logout)</h2>
+        <p>Para sair do sistema, primeiro limpamos as variáveis e depois destruímos o arquivo de sessão no servidor.</p>
+        <code>
+&lt;?php<br>
+session_start();<br><br>
+session_unset();   // Limpa as variáveis da memória<br>
+session_destroy(); // Destrói o arquivo da sessão<br><br>
+echo "Você saiu do sistema.";<br>
+?&gt;
+        </code>
+    </div>
+
+    <footer>
+        <p>Dica: O <strong>session_start()</strong> deve ser chamado em todos os arquivos onde você deseja acessar os dados do usuário.</p>
+    </footer>
+</div>
+
+
+</body></html>
